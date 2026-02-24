@@ -1,10 +1,18 @@
-import { kv } from "@vercel/kv";
+import { Redis } from "@upstash/redis";
 import { NextRequest, NextResponse } from "next/server";
 
 const KV_KEY = "tunnel_url";
 
+function getRedis() {
+  return new Redis({
+    url: process.env.KV_REST_API_URL!,
+    token: process.env.KV_REST_API_TOKEN!,
+  });
+}
+
 export async function GET() {
-  const url = await kv.get<string>(KV_KEY);
+  const redis = getRedis();
+  const url = await redis.get<string>(KV_KEY);
   if (!url) {
     return NextResponse.json(
       { error: "No tunnel URL configured yet" },
@@ -36,6 +44,7 @@ export async function POST(request: NextRequest) {
     );
   }
 
-  await kv.set(KV_KEY, body.url);
+  const redis = getRedis();
+  await redis.set(KV_KEY, body.url);
   return NextResponse.json({ ok: true, url: body.url });
 }
