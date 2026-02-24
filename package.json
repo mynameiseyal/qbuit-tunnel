@@ -2,20 +2,10 @@
   "name": "qbit-tunnel",
   "version": "1.0.0",
   "private": true,
-  "scripts": {
-    "dev": "next dev",
-    "build": "next build",
-    "start": "next start"
-  },
   "dependencies": {
-    "@upstash/redis": "^1.34.3",
-    "next": "^16.1.6",
-    "react": "^19.2.4",
-    "react-dom": "^19.2.4"
+    "@upstash/redis": "^1.34.3"
   },
   "devDependencies": {
-    "@types/node": "^22.13.8",
-    "@types/react": "^19.0.10",
-    "typescript": "^5.8.2"
+    "@vercel/node": "^5.6.7"
   }
 }
